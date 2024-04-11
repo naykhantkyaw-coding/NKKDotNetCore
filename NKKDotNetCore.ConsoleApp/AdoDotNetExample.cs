@@ -43,5 +43,58 @@ namespace NKKDotNetCore.ConsoleApp
             }
         }
 
+        public void Create(string title, string author, string content)
+        {
+            SqlConnection connection = new SqlConnection(_stringBuilder.ConnectionString);
+            connection.Open();
+
+            string query = @"INSERT INTO [dbo].[BlogTable]
+           ([BlogTitle]
+           ,[BlogAuthor]
+           ,[BlogContent])
+     VALUES
+           (@BlogTitle
+           ,@BlogAuthor
+           ,@BlogContent)";
+
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@BlogTitle", title);
+            cmd.Parameters.AddWithValue("@BlogAuthor", title);
+            cmd.Parameters.AddWithValue("@BlogContent", title);
+            int result = cmd.ExecuteNonQuery();
+
+            connection.Close();
+
+            string message = result > 0 ? "Saving Successful" : "Saving Fail";
+            Console.WriteLine(message);
+        }
+
+        public void Update(int id, string title, string author, string content)
+        {
+            SqlConnection connection = new SqlConnection(_stringBuilder.ConnectionString);
+            connection.Open();
+
+            string query = @"UPDATE [dbo].[BlogTable]
+            SET [BlogTitle] = @BlogTitle
+              ,[BlogAuthor] = @BlogAuthor
+              ,[BlogContent] = @BlogContent
+             WHERE @BlogId";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@BlogId", id);
+            command.Parameters.AddWithValue("@BlogTitle", title);
+            command.Parameters.AddWithValue("@BlogAuthor", author);
+            command.Parameters.AddWithValue("@BlogContent", content);
+            var result = command.ExecuteNonQuery();
+
+            connection.Close();
+
+            string message = result > 0 ? "Update Successful" : "Update Fail";
+            Console.WriteLine(message);
+
+        }
+
+
+
     }
 }
