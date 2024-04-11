@@ -78,7 +78,7 @@ namespace NKKDotNetCore.ConsoleApp
             SET [BlogTitle] = @BlogTitle
               ,[BlogAuthor] = @BlogAuthor
               ,[BlogContent] = @BlogContent
-             WHERE @BlogId";
+             WHERE BlogId = @BlogId";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@BlogId", id);
@@ -92,6 +92,23 @@ namespace NKKDotNetCore.ConsoleApp
             string message = result > 0 ? "Update Successful" : "Update Fail";
             Console.WriteLine(message);
 
+        }
+
+        public void Delete(int id)
+        {
+            SqlConnection connection = new SqlConnection(_stringBuilder.ConnectionString);
+            connection.Open();
+
+            string query = @"DELETE FROM [dbo].[BlogTable]
+                            WHERE BlogId = @BlogId";
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@BlogId", id);
+            var result = cmd.ExecuteNonQuery();
+
+            connection.Close();
+
+            string message = result > 0 ? "Delete Success" : "Delect fail";
+            Console.WriteLine(message);
         }
 
 
