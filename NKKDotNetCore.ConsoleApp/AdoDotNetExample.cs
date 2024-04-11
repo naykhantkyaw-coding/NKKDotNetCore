@@ -107,8 +107,35 @@ namespace NKKDotNetCore.ConsoleApp
 
             connection.Close();
 
-            string message = result > 0 ? "Delete Success" : "Delect fail";
+            string message = result > 0 ? "Delete Success" : "Delete fail";
             Console.WriteLine(message);
+        }
+
+        public void Edit(int id)
+        {
+            SqlConnection connection = new SqlConnection(_stringBuilder.ConnectionString);
+            connection.Open();
+
+            string query = "select * from BlogTable where BlogId = @BlogId";
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@BlogId", id);
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            connection.Close();
+
+            if (dt.Rows.Count == 0)
+            {
+                Console.WriteLine("Data Not Found.");
+                return;
+            }
+
+            DataRow dr = dt.Rows[0];
+            Console.WriteLine($"ID => {dr["BlogID"]}");
+            Console.WriteLine($"ID => {dr["BlogTitle"]}");
+            Console.WriteLine($"ID => {dr["BlogAuthor"]}");
+            Console.WriteLine($"ID => {dr["BlogContent"]}");
         }
 
 
