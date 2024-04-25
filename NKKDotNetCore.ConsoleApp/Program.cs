@@ -46,8 +46,15 @@ Console.WriteLine("Hello, World!");
 
 #region Dapper
 
-DapperExample dapperExample = new DapperExample();
-dapperExample.Run();
+//DapperExample dapperExample = new DapperExample();
+//dapperExample.Run();
+
+#endregion
+
+#region EFCore
+
+EfCoreExample efCoreExample = new EfCoreExample();
+efCoreExample.Run();
 
 #endregion
 
