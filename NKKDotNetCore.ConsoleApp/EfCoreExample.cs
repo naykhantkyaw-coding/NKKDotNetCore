@@ -30,5 +30,23 @@ namespace NKKDotNetCore.ConsoleApp
                 }
             }
         }
+
+        private void Edit(int id)
+        {
+            string message = string.Empty;
+            var result = db.Blogs.FirstOrDefault(x => x.BlogId == id);
+            if (result is null)
+            {
+                message = "No Data Found.";
+                goto Result;
+            }
+            Console.WriteLine($"BlogID : {result.BlogId}");
+            Console.WriteLine($"BlogTitle : {result.BlogTitle}");
+            Console.WriteLine($"BlogAuthor : {result.BlogAuthor}");
+            Console.WriteLine($"BlogContent : {result.BlogContent}");
+            Console.WriteLine("-------------------------------");
+        Result:
+            Console.WriteLine(message);
+        }
     }
 }
