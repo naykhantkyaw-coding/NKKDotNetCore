@@ -3,10 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34804.81
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NKKDotNetCore.ConsoleApp", "NKKDotNetCore.ConsoleApp\NKKDotNetCore.ConsoleApp.csproj", "{A6CAD78B-4552-491C-80BF-9BC0A7FEA8FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NKKDotNetCore.ConsoleApp", "NKKDotNetCore.ConsoleApp\NKKDotNetCore.ConsoleApp.csproj", "{A6CAD78B-4552-491C-80BF-9BC0A7FEA8FF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Document", "Document", "{5F15700A-7E98-4F30-B7F1-61865C62BA4D}"
 	ProjectSection(SolutionItems) = preProject
+		DotNetCoreTrainingBatch4.sql = DotNetCoreTrainingBatch4.sql
 		README.md = README.md
 	EndProjectSection
 EndProject
