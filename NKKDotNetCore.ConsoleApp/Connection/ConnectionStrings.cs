@@ -14,7 +14,8 @@ namespace NKKDotNetCore.ConsoleApp.Connection
             DataSource = ".",
             InitialCatalog = "DotNetCoreTrainingBatch4",
             UserID = "sa",
-            Password = "sasa@123"
+            Password = "sasa@123",
+            TrustServerCertificate = true,
         };
     }
 }
