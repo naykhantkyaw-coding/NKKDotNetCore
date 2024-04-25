@@ -15,10 +15,12 @@ namespace NKKDotNetCore.ConsoleApp
     {
         public void Run()
         {
-            Read();
+            //Read();
             //Create("TestingDapper", "TestingDP", "TestingDp");
-            Edit(1);
-            Edit(3000);
+            //Edit(1);
+            //Edit(3000);
+            Update(1, "UpdateDap", "UpdateDap", "UpdateDap");
+            Delete(1);
         }
 
         private void Read()
@@ -26,7 +28,6 @@ namespace NKKDotNetCore.ConsoleApp
             using IDbConnection db = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
             db.Open();
             List<BlogModel> model = db.Query<BlogModel>("select * from BlogTable").ToList();
-
             foreach (BlogModel item in model)
             {
                 Console.WriteLine($"BlogID : {item.BlogId}");
@@ -99,6 +100,18 @@ namespace NKKDotNetCore.ConsoleApp
             var result = db.Execute(query, item);
             string message = result > 0 ? "Update successful" : "Update fail.";
             Console.WriteLine(message);
+        }
+
+        private void Delete(int id)
+        {
+            using IDbConnection db = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
+            db.Open();
+            string query = @"DELETE FROM [dbo].[BlogTable]
+                            WHERE BlogId = @BlogId";
+            var result = db.Execute(query, new BlogModel { BlogId = id });
+            string message = result > 0 ? "Delete successful" : "Delete fail.";
+            Console.WriteLine(message);
+
         }
 
     }
