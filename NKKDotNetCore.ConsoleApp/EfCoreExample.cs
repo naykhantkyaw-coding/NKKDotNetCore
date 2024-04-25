@@ -1,4 +1,5 @@
-﻿using NKKDotNetCore.ConsoleApp.EfCoreDbContext;
+﻿using Microsoft.EntityFrameworkCore.Update.Internal;
+using NKKDotNetCore.ConsoleApp.EfCoreDbContext;
 using NKKDotNetCore.ConsoleApp.Model;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,10 @@ namespace NKKDotNetCore.ConsoleApp
         public void Run()
         {
             Read();
+            Edit(1);
+            Create("Efcore1", "Efcore1", "Efcore1");
+            Update(2);
+            Delete(1);
         }
         private void Read()
         {
@@ -46,6 +51,21 @@ namespace NKKDotNetCore.ConsoleApp
             Console.WriteLine($"BlogContent : {result.BlogContent}");
             Console.WriteLine("-------------------------------");
         Result:
+            Console.WriteLine(message);
+        }
+
+        private void Create(string blogTitle, string blogAuthor, string blogContent)
+        {
+            string message = string.Empty;
+            var item = new BlogModel
+            {
+                BlogTitle = blogTitle,
+                BlogAuthor = blogAuthor,
+                BlogContent = blogContent
+            };
+            db.Blogs.Add(item);
+            var rsult = db.SaveChanges();
+            message = rsult > 0 ? "Create success" : "Create fail.";
             Console.WriteLine(message);
         }
     }
