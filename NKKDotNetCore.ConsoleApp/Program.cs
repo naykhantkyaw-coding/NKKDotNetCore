@@ -33,11 +33,24 @@ Console.WriteLine("Hello, World!");
 //    Console.WriteLine("------------------------");
 //}
 
-AdoDotNetExample adoDotNetExample = new AdoDotNetExample();
+#region AdoDotNet
+
+//AdoDotNetExample adoDotNetExample = new AdoDotNetExample();
 //adoDotNetExample.Read();
 //adoDotNetExample.Create("TestTitle", "TestAuthor", "TestContent");
 //adoDotNetExample.Update(8, "Update", "Update", "Update");
 //adoDotNetExample.Delete(8);
-adoDotNetExample.Edit(7);
+//adoDotNetExample.Edit(7);
+
+#endregion
+
+#region Dapper
+
+DapperExample dapperExample = new DapperExample();
+dapperExample.Run();
+
+#endregion
+
+
 
 Console.ReadKey();
