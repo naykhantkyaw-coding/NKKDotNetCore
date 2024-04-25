@@ -80,5 +80,26 @@ namespace NKKDotNetCore.ConsoleApp
             Console.WriteLine("-------------------------------");
         }
 
+        private void Update(int id, string blogTitle, string blogAuthor, string blogContent)
+        {
+            var item = new BlogModel
+            {
+                BlogId = id,
+                BlogTitle = blogTitle,
+                BlogAuthor = blogAuthor,
+                BlogContent = blogContent
+            };
+            using IDbConnection db = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
+            db.Open();
+            string query = @"UPDATE [dbo].[BlogTable]
+            SET [BlogTitle] = @BlogTitle
+              ,[BlogAuthor] = @BlogAuthor
+              ,[BlogContent] = @BlogContent
+             WHERE BlogId = @BlogId";
+            var result = db.Execute(query, item);
+            string message = result > 0 ? "Update successful" : "Update fail.";
+            Console.WriteLine(message);
+        }
+
     }
 }
