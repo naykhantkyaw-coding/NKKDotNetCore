@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore.Update.Internal;
-using NKKDotNetCore.ConsoleApp.EfCoreDbContext;
 using NKKDotNetCore.ConsoleApp.Model;
 using System;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NKKDotNetCore.ConsoleApp
+namespace NKKDotNetCore.ConsoleApp.EFCoreExamples
 {
     internal class EfCoreExample
     {

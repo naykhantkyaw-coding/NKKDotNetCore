@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using NKKDotNetCore.ConsoleApp.Connection;
+using NKKDotNetCore.ConsoleApp.Services;
 using NKKDotNetCore.ConsoleApp.Model;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NKKDotNetCore.ConsoleApp
+namespace NKKDotNetCore.ConsoleApp.DapperExamples
 {
     internal class DapperExample
     {
