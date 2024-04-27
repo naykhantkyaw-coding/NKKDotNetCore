@@ -28,7 +28,7 @@ namespace NKKDotNetCore.RestApi.Controllers.EFCoreExample
             return Ok(lst);
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             var item = _appDbContext.Blogs.FirstOrDefault(x => x.BlogId == id);
@@ -48,6 +48,27 @@ namespace NKKDotNetCore.RestApi.Controllers.EFCoreExample
             message = result > 0 ? "Create success." : "Create fail.";
             return Ok(message);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, BlogModel reqModel)
+        {
+            string message = string.Empty;
+            var item = _appDbContext.Blogs.Find(id);
+            if (item is null)
+            {
+                return NotFound("No data found.");
+            }
+            item.BlogTitle = reqModel.BlogTitle;
+            item.BlogAuthor = reqModel.BlogAuthor;
+            item.BlogContent = reqModel.BlogContent;
+            //_appDbContext.Update(item); // testing code
+            var result = _appDbContext.SaveChanges();
+            message = result > 0 ? "Create success." : "Create fail.";
+            return Ok(message);
+
+        }
+
+
 
         [HttpDelete("id")]
         public IActionResult Delete(int id)
