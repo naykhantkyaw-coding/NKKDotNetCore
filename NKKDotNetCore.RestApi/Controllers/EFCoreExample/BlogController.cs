@@ -63,7 +63,7 @@ namespace NKKDotNetCore.RestApi.Controllers.EFCoreExample
             item.BlogContent = reqModel.BlogContent;
             //_appDbContext.Update(item); // testing code
             var result = _appDbContext.SaveChanges();
-            message = result > 0 ? "Create success." : "Create fail.";
+            message = result > 0 ? "Update success." : "Update fail.";
             return Ok(message);
 
         }
@@ -81,17 +81,17 @@ namespace NKKDotNetCore.RestApi.Controllers.EFCoreExample
             {
                 item.BlogTitle = reqModel.BlogTitle;
             }
-            if (!string.IsNullOrEmpty(reqModel.BlogTitle))
+            if (!string.IsNullOrEmpty(reqModel.BlogAuthor))
             {
                 item.BlogAuthor = reqModel.BlogAuthor;
             }
-            if (!string.IsNullOrEmpty(reqModel.BlogTitle))
+            if (!string.IsNullOrEmpty(reqModel.BlogContent))
             {
                 item.BlogContent = reqModel.BlogContent;
             }
             //_appDbContext.Update(item); // testing code
             var result = _appDbContext.SaveChanges();
-            message = result > 0 ? "Create success." : "Create fail.";
+            message = result > 0 ? "Update success." : "Update fail.";
             return Ok(message);
         }
 
