@@ -49,6 +49,21 @@ namespace NKKDotNetCore.RestApi.Controllers.EFCoreExample
             return Ok(message);
         }
 
+        [HttpDelete("id")]
+        public IActionResult Delete(int id)
+        {
+            string message = string.Empty;
+            var item = _appDbContext.Blogs.Find(id);
+            if (item is null)
+            {
+                message = "Data not found";
+            }
+            _appDbContext.Remove(item!);
+            var result = _appDbContext.SaveChanges();
+            message = result > 0 ? "Create success." : "Create fail.";
+            return Ok(message);
+        }
+
 
     }
 }
