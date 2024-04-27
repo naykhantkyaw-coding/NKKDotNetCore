@@ -68,6 +68,32 @@ namespace NKKDotNetCore.RestApi.Controllers.EFCoreExample
 
         }
 
+        [HttpPatch("{id}")]
+        public IActionResult Patch(int id, BlogModel reqModel)
+        {
+            string message = string.Empty;
+            var item = _appDbContext.Blogs.Find(id);
+            if (item is null)
+            {
+                return NotFound("No data found.");
+            }
+            if (!string.IsNullOrEmpty(reqModel.BlogTitle))
+            {
+                item.BlogTitle = reqModel.BlogTitle;
+            }
+            if (!string.IsNullOrEmpty(reqModel.BlogTitle))
+            {
+                item.BlogAuthor = reqModel.BlogAuthor;
+            }
+            if (!string.IsNullOrEmpty(reqModel.BlogTitle))
+            {
+                item.BlogContent = reqModel.BlogContent;
+            }
+            //_appDbContext.Update(item); // testing code
+            var result = _appDbContext.SaveChanges();
+            message = result > 0 ? "Create success." : "Create fail.";
+            return Ok(message);
+        }
 
 
         [HttpDelete("id")]
