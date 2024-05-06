@@ -24,7 +24,10 @@ namespace NKKDotNetCore.RestApi.Controllers.DapperExample
         [HttpGet("{id}")]
         public IActionResult GetBlogByID(int id)
         {
-            return Ok();
+            string query = "select * from BlogTable where BlogId=@BlogId";
+            using IDbConnection db = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
+            var item = db.Query<BlogModel>(query, new BlogModel { BlogId = id }).FirstOrDefault();
+            return Ok(item);
         }
 
         [HttpPost]
