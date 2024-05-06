@@ -27,12 +27,17 @@ namespace NKKDotNetCore.RestApi.Controllers.DapperExample
             string query = "select * from BlogTable where BlogId=@BlogId";
             using IDbConnection db = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
             var item = db.Query<BlogModel>(query, new BlogModel { BlogId = id }).FirstOrDefault();
+            if (item is null)
+            {
+                return NotFound("No Data Found.");
+            }
             return Ok(item);
         }
 
         [HttpPost]
-        public IActionResult CreateBlog()
+        public IActionResult CreateBlog(BlogModel blog)
         {
+
             return Ok();
         }
 
@@ -52,6 +57,15 @@ namespace NKKDotNetCore.RestApi.Controllers.DapperExample
         public IActionResult DeleteBlog(int id)
         {
             return Ok();
+        }
+
+        private BlogModel? FindById(int id)
+        {
+            string query = "select * from BlogTable where BlogId=@BlogId";
+            using IDbConnection db = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
+            var item = db.Query<BlogModel>(query, new BlogModel { BlogId = id }).FirstOrDefault();
+
+            return item;
         }
     }
 }
