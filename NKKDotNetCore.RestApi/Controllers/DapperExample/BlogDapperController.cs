@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using NKKDotNetCore.RestApi.Model;
 using NKKDotNetCore.RestApi.Services;
@@ -66,7 +67,17 @@ namespace NKKDotNetCore.RestApi.Controllers.DapperExample
         [HttpDelete("{id}")]
         public IActionResult DeleteBlog(int id)
         {
-            return Ok();
+            var item = FindById(id);
+            if (item is null)
+            {
+                return NotFound("No Data Found.");
+            }
+            string query = @"DELETE FROM [dbo].[BlogTable]
+                            WHERE BlogId = @BlogId";
+            using IDbConnection db = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
+            var result = db.Execute(query, new BlogModel { BlogId = id });
+            string message = result > 0 ? "Delete successful" : "Delete fail.";
+            return Ok(message);
         }
 
         private BlogModel? FindById(int id)
