@@ -37,8 +37,18 @@ namespace NKKDotNetCore.RestApi.Controllers.DapperExample
         [HttpPost]
         public IActionResult CreateBlog(BlogModel blog)
         {
-
-            return Ok();
+            string query = @"INSERT INTO [dbo].[BlogTable]
+           ([BlogTitle]
+           ,[BlogAuthor]
+           ,[BlogContent])
+     VALUES
+           (@BlogTitle
+           ,@BlogAuthor
+           ,@BlogContent)";
+            using IDbConnection db = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
+            var result = db.Execute(query, blog);
+            string message = result > 0 ? "Create successful" : "Create fail.";
+            return Ok(message);
         }
 
         [HttpPut("{id}")]
