@@ -53,9 +53,23 @@ namespace NKKDotNetCore.RestApi.Controllers.DapperExample
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateBlog(int id)
+        public IActionResult UpdateBlog(int id, BlogModel blog)
         {
-            return Ok();
+            var item = FindById(id);
+            if (item is null)
+            {
+                return NotFound("No Data Found.");
+            }
+            string query = @"UPDATE [dbo].[BlogTable]
+            SET [BlogTitle] = @BlogTitle
+              ,[BlogAuthor] = @BlogAuthor
+              ,[BlogContent] = @BlogContent
+             WHERE BlogId = @BlogId";
+            blog.BlogId = id;
+            using IDbConnection db = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
+            var result = db.Execute(query, blog);
+            string message = result > 0 ? "Update successful" : "Update fail.";
+            return Ok(message);
         }
 
         [HttpPatch]
