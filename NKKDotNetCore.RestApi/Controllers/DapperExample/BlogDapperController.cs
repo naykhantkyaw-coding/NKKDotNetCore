@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using NKKDotNetCore.RestApi.Model;
 using NKKDotNetCore.RestApi.Services;
 using System.Data;
@@ -72,10 +73,40 @@ namespace NKKDotNetCore.RestApi.Controllers.DapperExample
             return Ok(message);
         }
 
-        [HttpPatch]
-        public IActionResult PatchUpdateBlog(int id)
+        [HttpPatch("{id}")]
+        public IActionResult PatchUpdateBlog(int id, BlogModel blog)
         {
-            return Ok();
+            var item = FindById(id);
+            if (item is null)
+            {
+                return NotFound("No Data Found.");
+            }
+            string condation = string.Empty;
+            if (!blog.BlogTitle.IsNullOrEmpty())
+            {
+                condation += " [BlogTitle] = @BlogTitle, ";
+            }
+            if (!blog.BlogAuthor.IsNullOrEmpty())
+            {
+                condation += " [BlogAuthor] = @BlogAuthor, ";
+            }
+            if (!blog.BlogContent.IsNullOrEmpty())
+            {
+                condation += " [BlogContent] = @BlogContent, ";
+            }
+            if (string.IsNullOrEmpty(condation))
+            {
+                return NotFound("No data found.");
+            }
+            condation = condation.Substring(0, condation.Length - 2);
+            blog.BlogId = id;
+            string query = $@"UPDATE [dbo].[BlogTable]
+            SET {condation}
+             WHERE BlogId = @BlogId";
+            using IDbConnection db = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
+            var result = db.Execute(query, blog);
+            string message = result > 0 ? "PatchUpdate successful" : "PatchUpdate fail.";
+            return Ok(message);
         }
 
         [HttpDelete("{id}")]
