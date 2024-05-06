@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NKKDotNetCore.RestApi.Services
 {
-    internal static class ConnectionStrings
+    public static class ConnectionStrings
     {
         public static SqlConnectionStringBuilder connectionString = new SqlConnectionStringBuilder()
         {

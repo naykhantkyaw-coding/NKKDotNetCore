@@ -1,5 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Dapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NKKDotNetCore.RestApi.Model;
+using NKKDotNetCore.RestApi.Services;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace NKKDotNetCore.RestApi.Controllers.DapperExample
 {
@@ -10,7 +15,10 @@ namespace NKKDotNetCore.RestApi.Controllers.DapperExample
         [HttpGet]
         public IActionResult GetBlog()
         {
-            return Ok();
+            string query = "select * from BlogTable";
+            using IDbConnection db = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
+            List<BlogModel> lst = db.Query<BlogModel>(query).ToList();
+            return Ok(lst);
         }
 
         [HttpGet("{id}")]
