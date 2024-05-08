@@ -34,9 +34,9 @@ namespace NKKDotNetCore.RestApi.Controllers.AdoDotNetExample
             lstBlog = dt.AsEnumerable().Select(dr => new BlogModel
             {
                 BlogId = Convert.ToInt32(dr["BlogId"]),
-                BlogTitle = Convert.ToString(dr["BlogId"]),
-                BlogAuthor = Convert.ToString(dr["BlogId"]),
-                BlogContent = Convert.ToString(dr["BlogId"]),
+                BlogTitle = Convert.ToString(dr["BlogTitle"]),
+                BlogAuthor = Convert.ToString(dr["BlogAuthor"]),
+                BlogContent = Convert.ToString(dr["BlogContent"]),
 
             }).ToList();
             return Ok(lstBlog);
@@ -53,6 +53,7 @@ namespace NKKDotNetCore.RestApi.Controllers.AdoDotNetExample
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
+            connection.Close();
             if (dt.Rows.Count == 0)
             {
                 return NotFound("No data found");
@@ -61,11 +62,35 @@ namespace NKKDotNetCore.RestApi.Controllers.AdoDotNetExample
             var item = new BlogModel
             {
                 BlogId = Convert.ToInt32(dr["BlogID"]),
-                BlogTitle = Convert.ToString(dr["BlogId"]),
-                BlogAuthor = Convert.ToString(dr["BlogId"]),
-                BlogContent = Convert.ToString(dr["BlogId"]),
+                BlogTitle = Convert.ToString(dr["BlogTitle"]),
+                BlogAuthor = Convert.ToString(dr["BlogAuthor"]),
+                BlogContent = Convert.ToString(dr["BlogContent"]),
             };
             return Ok(item);
+        }
+
+        [HttpPost]
+        public IActionResult CreateBlog(BlogModel reqModel)
+        {
+            string query = @"INSERT INTO [dbo].[BlogTable]
+           ([BlogTitle]
+           ,[BlogAuthor]
+           ,[BlogContent])
+     VALUES
+           (@BlogTitle
+           ,@BlogAuthor
+           ,@BlogContent)";
+            var connection = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
+            connection.Open();
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@BlogTitle", reqModel.BlogTitle);
+            cmd.Parameters.AddWithValue("@BlogAuthor", reqModel.BlogAuthor);
+            cmd.Parameters.AddWithValue("@BlogContent", reqModel.BlogContent);
+
+            var result = cmd.ExecuteNonQuery();
+            return Ok(result > 0 ? "Create success" : "Create fail.");
+
+
         }
     }
 }
