@@ -5,6 +5,7 @@ using NKKDotNetCore.RestApi.Model;
 using NKKDotNetCore.RestApi.Services;
 using System.Data;
 using System.Data.SqlClient;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace NKKDotNetCore.RestApi.Controllers.AdoDotNetExample
 {
@@ -68,6 +69,27 @@ namespace NKKDotNetCore.RestApi.Controllers.AdoDotNetExample
                 BlogContent = Convert.ToString(dr["BlogContent"]),
             };
             return Ok(item);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateBlog(int id, BlogModel reqModel) 
+        {
+            string query = @"UPDATE [dbo].[BlogTable]
+            SET [BlogTitle] = @BlogTitle
+              ,[BlogAuthor] = @BlogAuthor
+              ,[BlogContent] = @BlogContent
+             WHERE BlogId = @BlogId";
+            var connection = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
+            connection.Open();
+            SqlCommand cmd = new SqlCommand(query,connection);
+            cmd.Parameters.AddWithValue("@BlogId", reqModel.BlogId);
+            cmd.Parameters.AddWithValue("@BlogTitle", reqModel.BlogTitle);
+            cmd.Parameters.AddWithValue("@BlogAuthor", reqModel.BlogAuthor);
+            cmd.Parameters.AddWithValue("@BlogContent", reqModel.BlogContent);
+            var result = cmd.ExecuteNonQuery();
+            connection.Close();
+            return Ok(result > 0 ? "Create success" : "Create fail.");
+
         }
 
         [HttpPost]
