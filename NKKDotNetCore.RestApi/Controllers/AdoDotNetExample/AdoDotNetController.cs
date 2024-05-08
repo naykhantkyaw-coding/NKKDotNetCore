@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using NKKDotNetCore.RestApi.Model;
 using NKKDotNetCore.RestApi.Services;
 using System.Data;
@@ -86,11 +87,25 @@ namespace NKKDotNetCore.RestApi.Controllers.AdoDotNetExample
             cmd.Parameters.AddWithValue("@BlogTitle", reqModel.BlogTitle);
             cmd.Parameters.AddWithValue("@BlogAuthor", reqModel.BlogAuthor);
             cmd.Parameters.AddWithValue("@BlogContent", reqModel.BlogContent);
-
             var result = cmd.ExecuteNonQuery();
+            connection.Close();
             return Ok(result > 0 ? "Create success" : "Create fail.");
 
 
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult BlogDelete(int id)
+        {
+            string query = @"DELETE FROM [dbo].[BlogTable]
+                            WHERE BlogId = @BlogId";
+            var connection = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
+            connection.Open();
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@BlogId", id);
+            var result = cmd.ExecuteNonQuery();
+            connection.Close();
+            return Ok(result > 0 ? "Delete success" : "Delete fail.");
         }
     }
 }
