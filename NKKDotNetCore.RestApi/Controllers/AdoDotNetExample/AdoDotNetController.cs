@@ -21,7 +21,7 @@ namespace NKKDotNetCore.RestApi.Controllers.AdoDotNetExample
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
-
+            connection.Close();
             List<BlogModel> lstBlog = new List<BlogModel>();
             //foreach (DataRow row in dt.Rows)
             //{
@@ -40,7 +40,32 @@ namespace NKKDotNetCore.RestApi.Controllers.AdoDotNetExample
 
             }).ToList();
             return Ok(lstBlog);
+        }
 
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            string query = "select * from BlogTable where BlogId = @BlogId";
+            var connection = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
+            connection.Open();
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@BlogId", id);
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            if (dt.Rows.Count == 0)
+            {
+                return NotFound("No data found");
+            }
+            var dr = dt.Rows[0];
+            var item = new BlogModel
+            {
+                BlogId = Convert.ToInt32(dr["BlogID"]),
+                BlogTitle = Convert.ToString(dr["BlogId"]),
+                BlogAuthor = Convert.ToString(dr["BlogId"]),
+                BlogContent = Convert.ToString(dr["BlogId"]),
+            };
+            return Ok(item);
         }
     }
 }
