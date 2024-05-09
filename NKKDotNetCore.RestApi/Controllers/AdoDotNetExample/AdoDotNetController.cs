@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Query.Internal;
+using Microsoft.IdentityModel.Tokens;
 using NKKDotNetCore.RestApi.Model;
 using NKKDotNetCore.RestApi.Services;
 using System.Data;
@@ -72,7 +73,7 @@ namespace NKKDotNetCore.RestApi.Controllers.AdoDotNetExample
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateBlog(int id, BlogModel reqModel) 
+        public IActionResult UpdateBlog(int id, BlogModel reqModel)
         {
             string query = @"UPDATE [dbo].[BlogTable]
             SET [BlogTitle] = @BlogTitle
@@ -81,15 +82,61 @@ namespace NKKDotNetCore.RestApi.Controllers.AdoDotNetExample
              WHERE BlogId = @BlogId";
             var connection = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
             connection.Open();
-            SqlCommand cmd = new SqlCommand(query,connection);
-            cmd.Parameters.AddWithValue("@BlogId", reqModel.BlogId);
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@BlogId", id);
             cmd.Parameters.AddWithValue("@BlogTitle", reqModel.BlogTitle);
             cmd.Parameters.AddWithValue("@BlogAuthor", reqModel.BlogAuthor);
             cmd.Parameters.AddWithValue("@BlogContent", reqModel.BlogContent);
             var result = cmd.ExecuteNonQuery();
             connection.Close();
-            return Ok(result > 0 ? "Create success" : "Create fail.");
+            return Ok(result > 0 ? "Update success" : "Update fail.");
 
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult PatchUpdate(int id, BlogModel reqModel)
+        {
+            string condition = string.Empty;
+            if (!reqModel.BlogTitle.IsNullOrEmpty())
+            {
+                condition += " [BlogTitle] = @BlogTitle, ";
+            }
+            if (!reqModel.BlogAuthor.IsNullOrEmpty())
+            {
+                condition += " [BlogAuthor] = @BlogAuthor, ";
+            }
+            if (!reqModel.BlogContent.IsNullOrEmpty())
+            {
+                condition += " [BlogContent] = @BlogContent, ";
+            }
+            if (condition.Length == 0)
+            {
+                return NotFound("No data found.");
+            }
+            condition = condition.Substring(0, condition.Length - 2);
+            string query = $@"UPDATE [dbo].[BlogTable]
+            SET {condition}
+             WHERE BlogId = @BlogId";
+            var connection = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
+            connection.Open();
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@BlogId", id);
+            if (!reqModel.BlogTitle.IsNullOrEmpty())
+            {
+                cmd.Parameters.AddWithValue("@BlogTitle", reqModel.BlogTitle);
+            }
+            if (!reqModel.BlogAuthor.IsNullOrEmpty())
+            {
+                cmd.Parameters.AddWithValue("@BlogAuthor", reqModel.BlogAuthor);
+            }
+            if (!reqModel.BlogContent.IsNullOrEmpty())
+            {
+                cmd.Parameters.AddWithValue("@BlogContent", reqModel.BlogContent);
+            }
+            var result = cmd.ExecuteNonQuery();
+
+            connection.Close();
+            return Ok(result > 0 ? "Patch Update success" : "Patch Update fail.");
         }
 
         [HttpPost]
