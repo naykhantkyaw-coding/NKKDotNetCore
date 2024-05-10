@@ -26,5 +26,21 @@ namespace NKKDotNetCore.RestApi.Controllers.DapperExampleWithService
             var item = _dapperService.GetDataFirstOrDefault<BlogModel>(query, new BlogModel { BlogId = id });
             return Ok(item);
         }
+
+        [HttpPost]
+        public IActionResult Create(BlogModel model)
+        {
+            string query = @"INSERT INTO [dbo].[BlogTable]
+           ([BlogTitle]
+           ,[BlogAuthor]
+           ,[BlogContent])
+     VALUES
+           (@BlogTitle
+           ,@BlogAuthor
+           ,@BlogContent)";
+            var result = _dapperService.Execute(query, model);
+            string message = result > 0 ? "Create success." : "Create fail.";
+            return Ok(message);
+        }
     }
 }
