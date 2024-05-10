@@ -7,7 +7,7 @@ namespace NKKDotNetCore.Shared
 {
     public class DapperService
     {
-        public List<T> GetDatas<T>(string query, object? parameters = null)
+        public List<T> GetData<T>(string query, object? parameters = null)
         {
             using IDbConnection connection = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
             var data = connection.Query<T>(query, parameters).ToList();
