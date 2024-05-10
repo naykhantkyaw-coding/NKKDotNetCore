@@ -20,5 +20,12 @@ namespace NKKDotNetCore.Shared
             var item = connection.Query<T>(query, parameters).FirstOrDefault();
             return item;
         }
+
+        public int Execute(string query, object? parameters = null)
+        {
+            using IDbConnection connection = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
+            var result = connection.Execute(query, parameters);
+            return result;
+        }
     }
 }
