@@ -18,5 +18,13 @@ namespace NKKDotNetCore.RestApi.Controllers.DapperExampleWithService
             var lst = _dapperService.GetData<BlogModel>(query);
             return Ok(lst);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetBlogs(int id)
+        {
+            string query = "select * from BlogTable where BlogId=@BlogId";
+            var item = _dapperService.GetDataFirstOrDefault<BlogModel>(query, new BlogModel { BlogId = id });
+            return Ok(item);
+        }
     }
 }
