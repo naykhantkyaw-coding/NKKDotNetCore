@@ -42,5 +42,24 @@ namespace NKKDotNetCore.RestApi.Controllers.DapperExampleWithService
             string message = result > 0 ? "Create success." : "Create fail.";
             return Ok(message);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Update(int id)
+        {
+            var item = FindById(id);
+            if (item is null)
+            {
+                return NotFound("No Data Found.");
+            }
+            string query = 
+            return Ok();
+        }
+
+        private BlogModel? FindById(int id)
+        {
+            string query = "select * from BlogTable where BlogId=@BlogId";
+            var item = _dapperService.GetDataFirstOrDefault<BlogModel>(query);
+            return item;
+        }
     }
 }
