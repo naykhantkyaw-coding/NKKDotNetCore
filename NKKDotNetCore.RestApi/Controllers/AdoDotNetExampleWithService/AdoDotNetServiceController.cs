@@ -18,5 +18,13 @@ namespace NKKDotNetCore.RestApi.Controllers.AdoDotNetExampleWithService
             var result = _service.Query<BlogModel>(query);
             return Ok(result);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetBlogById(int id)
+        {
+            string query = "select * from BlogTable where BlogId = @BlogId";
+            var result = _service.QueryFirstOrDefault<BlogModel>(query, new AdoDotNetParamters("@BlogId", id));
+            return Ok(result);
+        }
     }
 }

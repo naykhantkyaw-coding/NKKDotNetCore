@@ -52,8 +52,8 @@ namespace NKKDotNetCore.Shared.Services
             adapter.Fill(dt);
             connection.Close();
             string json = JsonConvert.SerializeObject(dt);
-            T? data = JsonConvert.DeserializeObject<T>(json);
-            return (data);
+            List<T>? data = JsonConvert.DeserializeObject<List<T>>(json);
+            return (data[0]);
         }
 
         public int Execute(string query, params AdoDotNetParamters[] parameters)
