@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using NKKDotNetCore.RestApi.Model;
 using NKKDotNetCore.Shared.Services;
 
@@ -49,6 +50,11 @@ namespace NKKDotNetCore.RestApi.Controllers.AdoDotNetExampleWithService
         [HttpPut("{id}")]
         public IActionResult Update(int id, BlogModel model)
         {
+            var item = GetById(id);
+            if (item is null)
+            {
+                return NotFound("No data found.");
+            }
             string query = @"UPDATE [dbo].[BlogTable]
             SET [BlogTitle] = @BlogTitle
               ,[BlogAuthor] = @BlogAuthor
@@ -56,11 +62,64 @@ namespace NKKDotNetCore.RestApi.Controllers.AdoDotNetExampleWithService
              WHERE BlogId = @BlogId";
             model.BlogId = id;
             var result = _service.Execute(query,
-                new AdoDotNetParamters("@BlogTitle", model.BlogTitle),
-                new AdoDotNetParamters("@BlogAuthor", model.BlogAuthor),
-                new AdoDotNetParamters("@BlogContent", model.BlogContent),
+                new AdoDotNetParamters("@BlogTitle", model.BlogTitle!),
+                new AdoDotNetParamters("@BlogAuthor", model.BlogAuthor!),
+                new AdoDotNetParamters("@BlogContent", model.BlogContent!),
                 new AdoDotNetParamters("@BlogId", model.BlogId));
             string message = result > 0 ? "Update Success." : "Update fail.";
+            return Ok(message);
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult PatchUpdate(int id, BlogModel model)
+        {
+            var item = GetById(id);
+            if (item is null)
+            {
+                return NotFound("No data found.");
+            }
+            string condition = string.Empty;
+            if (!model.BlogTitle.IsNullOrEmpty())
+            {
+                condition += " [BlogTitle] = @BlogTitle, ";
+            }
+            if (!model.BlogAuthor.IsNullOrEmpty())
+            {
+                condition += " [BlogAuthor] = @BlogAuthor, ";
+            }
+            if (!model.BlogContent.IsNullOrEmpty())
+            {
+                condition += " [BlogContent] = @BlogContent, ";
+            }
+            if (condition.Length == 0)
+            {
+                return NotFound("No data found.");
+            }
+            condition = condition.Substring(0, condition.Length - 2);
+            string query = $@"UPDATE [dbo].[BlogTable]
+            SET {condition}
+             WHERE BlogId = @BlogId";
+            model.BlogId = id;
+            int result = 0;
+            if (!model.BlogTitle.IsNullOrEmpty())
+            {
+                result = _service.Execute(query,
+                new AdoDotNetParamters("@BlogTitle", model.BlogTitle!),
+                new AdoDotNetParamters("@BlogId", model.BlogId!));
+            }
+            if (!model.BlogAuthor.IsNullOrEmpty())
+            {
+                result = _service.Execute(query,
+                new AdoDotNetParamters("@BlogAuthor", model.BlogAuthor!),
+                new AdoDotNetParamters("@BlogId", model.BlogId!));
+            }
+            if (!model.BlogContent.IsNullOrEmpty())
+            {
+                result = _service.Execute(query,
+                new AdoDotNetParamters("@BlogContent", model.BlogContent!),
+                new AdoDotNetParamters("@BlogId", model.BlogId!));
+            }
+            string message = result > 0 ? "PatchUpdate Success." : "PatchUpdate fail.";
             return Ok(message);
         }
 
