@@ -46,6 +46,17 @@ namespace NKKDotNetCore.RestApi.Controllers.AdoDotNetExampleWithService
             return Ok(message);
         }
 
+        [HttpDelete]
+
+        public IActionResult DeleteBlog(int id)
+        {
+            string query = @"DELETE FROM [dbo].[BlogTable]
+                            WHERE BlogId = @BlogId";
+            var result = _service.Execute(query, new AdoDotNetParamters("@BlogId", id));
+            string message = result > 0 ? "Delete Success." : "Delete fail.";
+            return Ok(message);
+        }
+
         private BlogModel GetById(int id)
         {
             string query = "select * from BlogTable where BlogId = @BlogId";
