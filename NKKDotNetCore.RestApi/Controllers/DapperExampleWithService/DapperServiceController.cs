@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using NKKDotNetCore.RestApi.Model;
 using NKKDotNetCore.Shared.Services;
@@ -40,6 +41,24 @@ namespace NKKDotNetCore.RestApi.Controllers.DapperExampleWithService
            ,@BlogContent)";
             var result = _dapperService.Execute(query, model);
             string message = result > 0 ? "Create success." : "Create fail.";
+            return Ok(message);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, BlogModel model)
+        {
+            var item = FindById(id);
+            if (item is null)
+            {
+                return NotFound("No data found.");
+            }
+            string query = @"UPDATE [dbo].[BlogTable]
+            SET [BlogTitle] = @BlogTitle
+              ,[BlogAuthor] = @BlogAuthor
+              ,[BlogContent] = @BlogContent
+             WHERE BlogId = @BlogId";
+            var result = _dapperService.Execute(query, model);
+            string message = result > 0 ? "Update successful" : "Update fail.";
             return Ok(message);
         }
 
