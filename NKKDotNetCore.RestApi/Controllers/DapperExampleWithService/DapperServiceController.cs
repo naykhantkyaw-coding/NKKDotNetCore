@@ -117,7 +117,7 @@ namespace NKKDotNetCore.RestApi.Controllers.DapperExampleWithService
         private BlogModel? FindById(int id)
         {
             string query = "select * from BlogTable where BlogId=@BlogId";
-            var item = _dapperService.GetDataFirstOrDefault<BlogModel>(query);
+            var item = _dapperService.GetDataFirstOrDefault<BlogModel>(query, new BlogModel { BlogId = id });
             return item;
         }
     }
