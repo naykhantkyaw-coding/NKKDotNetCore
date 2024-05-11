@@ -46,10 +46,32 @@ namespace NKKDotNetCore.RestApi.Controllers.AdoDotNetExampleWithService
             return Ok(message);
         }
 
-        [HttpDelete]
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, BlogModel model)
+        {
+            string query = @"UPDATE [dbo].[BlogTable]
+            SET [BlogTitle] = @BlogTitle
+              ,[BlogAuthor] = @BlogAuthor
+              ,[BlogContent] = @BlogContent
+             WHERE BlogId = @BlogId";
+            model.BlogId = id;
+            var result = _service.Execute(query,
+                new AdoDotNetParamters("@BlogTitle", model.BlogTitle),
+                new AdoDotNetParamters("@BlogAuthor", model.BlogAuthor),
+                new AdoDotNetParamters("@BlogContent", model.BlogContent),
+                new AdoDotNetParamters("@BlogId", model.BlogId));
+            string message = result > 0 ? "Update Success." : "Update fail.";
+            return Ok(message);
+        }
 
+        [HttpDelete]
         public IActionResult DeleteBlog(int id)
         {
+            var item = GetById(id);
+            if (item is null)
+            {
+                return NotFound("No data found");
+            }
             string query = @"DELETE FROM [dbo].[BlogTable]
                             WHERE BlogId = @BlogId";
             var result = _service.Execute(query, new AdoDotNetParamters("@BlogId", id));
