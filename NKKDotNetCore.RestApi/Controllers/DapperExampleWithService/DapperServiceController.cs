@@ -44,15 +44,18 @@ namespace NKKDotNetCore.RestApi.Controllers.DapperExampleWithService
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Update(int id)
+        public IActionResult Delete(int id)
         {
             var item = FindById(id);
             if (item is null)
             {
                 return NotFound("No Data Found.");
             }
-            string query = 
-            return Ok();
+            string query = @"DELETE FROM [dbo].[BlogTable]
+                            WHERE BlogId = @BlogId";
+            var result = _dapperService.Execute(query, new BlogModel { BlogId = id });
+            string message = result > 0 ? "Delete Success." : "Delete fail.";
+            return Ok(message);
         }
 
         private BlogModel? FindById(int id)
