@@ -28,7 +28,7 @@ namespace NKKDotNetCore.Shared.Services
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
-            connection.Open();
+            connection.Close();
             string json = JsonConvert.SerializeObject(dt);
             List<T>? data = JsonConvert.DeserializeObject<List<T>>(json);
             return data;
@@ -50,7 +50,7 @@ namespace NKKDotNetCore.Shared.Services
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
-            connection.Open();
+            connection.Close();
             string json = JsonConvert.SerializeObject(dt);
             T? data = JsonConvert.DeserializeObject<T>(json);
             return (data);
@@ -68,7 +68,7 @@ namespace NKKDotNetCore.Shared.Services
                 Value = x.Value
             }).ToArray());
             var result = cmd.ExecuteNonQuery();
-            connection.Open();
+            connection.Close();
             return result;
         }
     }
