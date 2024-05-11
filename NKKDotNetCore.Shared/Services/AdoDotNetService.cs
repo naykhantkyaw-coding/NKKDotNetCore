@@ -32,6 +32,27 @@ namespace NKKDotNetCore.Shared.Services
             List<T>? data = JsonConvert.DeserializeObject<List<T>>(json);
             return data;
         }
+
+        public T? QueryFirstOrDefault<T>(string query, params AdoDotNetParamters[] parameters)
+        {
+            SqlConnection connection = new SqlConnection(ConnectionStrings.connectionString.ConnectionString);
+            connection.Open();
+            SqlCommand cmd = new SqlCommand(query, connection);
+
+            cmd.Parameters.AddRange(parameters.Select(x =>
+            new SqlParameter
+            {
+                ParameterName = x.Name,
+                Value = x.Value
+            }).ToArray());
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            string json = JsonConvert.SerializeObject(dt);
+            T? data = JsonConvert.DeserializeObject<T>(json);
+            return (data);
+        }
     }
 
     public class AdoDotNetParamters
