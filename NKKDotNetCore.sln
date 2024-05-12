@@ -13,7 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Document", "Document", "{5F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NKKDotNetCore.RestApi", "NKKDotNetCore.RestApi\NKKDotNetCore.RestApi.csproj", "{DEFBB6BD-60E8-41B6-9873-6C757017D056}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NKKDotNetCore.Shared", "NKKDotNetCore.Shared\NKKDotNetCore.Shared.csproj", "{B183B387-DF4A-481D-AAB0-7E13A8531ED8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NKKDotNetCore.Shared", "NKKDotNetCore.Shared\NKKDotNetCore.Shared.csproj", "{B183B387-DF4A-481D-AAB0-7E13A8531ED8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NKKDotNetCore.RestApiWithNLayer", "NKKDotNetCore.RestApiWithNLayer\NKKDotNetCore.RestApiWithNLayer.csproj", "{E1502574-D65B-45BA-AD36-A729F03DD293}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{B183B387-DF4A-481D-AAB0-7E13A8531ED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B183B387-DF4A-481D-AAB0-7E13A8531ED8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B183B387-DF4A-481D-AAB0-7E13A8531ED8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1502574-D65B-45BA-AD36-A729F03DD293}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1502574-D65B-45BA-AD36-A729F03DD293}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1502574-D65B-45BA-AD36-A729F03DD293}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1502574-D65B-45BA-AD36-A729F03DD293}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
