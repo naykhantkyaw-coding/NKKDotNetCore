@@ -42,5 +42,12 @@ namespace NKKDotNetCore.RestApiWithNLayer.Features.Blog
             }
             return model;
         }
+
+        public string CreateBlog(BlogTable model)
+        {
+            _dbContext.BlogTables.Add(model);
+            var result = _dbContext.SaveChanges();
+            return result > 0 ? "Create success." : "Create fail.";
+        }
     }
 }

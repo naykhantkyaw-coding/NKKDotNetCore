@@ -21,5 +21,11 @@ namespace NKKDotNetCore.RestApiWithNLayer.Features.Blog
             var item = _daBlog.GetBlogById(id);
             return item;
         }
+
+        public string CreateBlog(BlogTable model)
+        {
+            var result = _daBlog.CreateBlog(model);
+            return result;
+        }
     }
 }

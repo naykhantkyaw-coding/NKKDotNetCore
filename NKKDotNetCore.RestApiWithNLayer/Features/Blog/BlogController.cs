@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NKKDotNetCore.RestApiWithNLayer.EFAppDbContextModels;
 
 namespace NKKDotNetCore.RestApiWithNLayer.Features.Blog
 {
@@ -26,6 +27,13 @@ namespace NKKDotNetCore.RestApiWithNLayer.Features.Blog
         {
             var item = _blBlog.GetBlogById(id);
             return Ok(item);
+        }
+
+        [HttpPost]
+        public IActionResult CreateBlog(BlogTable model)
+        {
+            var result = _blBlog.CreateBlog(model);
+            return Ok(result);
         }
     }
 }
