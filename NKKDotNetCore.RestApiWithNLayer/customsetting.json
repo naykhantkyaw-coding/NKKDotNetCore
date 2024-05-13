@@ -1,0 +1,7 @@
+{
+  "CustomSetting": {
+    "ConnectionStrings": {
+      "DbConnection": "Server=.;Database=DotNetCoreTrainingBatch4;User=sa;Password=sasa@123;TrustServerCertificate=true;",
+    }
+  }
+}
