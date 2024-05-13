@@ -24,5 +24,23 @@ namespace NKKDotNetCore.RestApiWithNLayer.Features.Blog
             }
             return model;
         }
+
+        public BlogTable? GetBlogById(int id)
+        {
+            BlogTable? model = new();
+            try
+            {
+                if (id > 0)
+                {
+                    model = _dbContext.BlogTables.Find(id);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
+            return model;
+        }
     }
 }

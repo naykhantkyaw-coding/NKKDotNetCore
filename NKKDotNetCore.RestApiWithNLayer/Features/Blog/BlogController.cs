@@ -20,5 +20,12 @@ namespace NKKDotNetCore.RestApiWithNLayer.Features.Blog
             var lst = _blBlog.GetAllBlogs();
             return Ok(lst);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var item = _blBlog.GetBlogById(id);
+            return Ok(item);
+        }
     }
 }
