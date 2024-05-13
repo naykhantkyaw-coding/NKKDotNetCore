@@ -74,5 +74,26 @@ namespace NKKDotNetCore.RestApiWithNLayer.Features.Blog
             return result > 0 ? "Update success." : "Update fail.";
 
         }
+
+        public string DeleteBlog(int id)
+        {
+            int result = 0;
+            try
+            {
+                BlogTable? item = _dbContext.BlogTables.Find(id);
+                if (item is null)
+                {
+                    result = 0;
+                }
+                _dbContext.Remove(item!);
+                result = _dbContext.SaveChanges();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return result > 0 ? "Delete success." : "Delete fail.";
+        }
     }
 }
