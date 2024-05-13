@@ -35,5 +35,19 @@ namespace NKKDotNetCore.RestApiWithNLayer.Features.Blog
             var result = _blBlog.CreateBlog(model);
             return Ok(result);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateBlog(int id, BlogTable model)
+        {
+            var result = _blBlog.UpdateBlog(id, model);
+            return Ok(result);
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteBlog(int id)
+        {
+            var result = _blBlog.DeleteBlog(id);
+            return Ok(result);
+        }
     }
 }
