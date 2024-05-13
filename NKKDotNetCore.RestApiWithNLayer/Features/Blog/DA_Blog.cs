@@ -13,8 +13,16 @@ namespace NKKDotNetCore.RestApiWithNLayer.Features.Blog
 
         public List<BlogTable> GetAllBlog()
         {
-            var lst = _dbContext.BlogTables.ToList();
-            return lst;
+            List<BlogTable> model = new();
+            try
+            {
+                model = _dbContext.BlogTables.ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return model;
         }
     }
 }

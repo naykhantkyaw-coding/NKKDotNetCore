@@ -11,8 +11,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+#region Adding CustomSetting
+
+builder.Configuration.AddJsonFile("customsetting.json", true,true);
+
+#endregion
+
 #region AddDbContext
 
+//var testing = builder.Configuration.GetSection("CustomSetting:ConnectionStrings:DbConnection").Value;
 builder.Services.AddDbContext<AppDbContext>(
 opt => opt.UseSqlServer(builder.Configuration.GetSection("CustomSetting:ConnectionStrings:DbConnection").Value),
 ServiceLifetime.Transient,
