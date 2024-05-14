@@ -14,11 +14,32 @@ namespace NKKDotNetCore.RestApiWithNLayer.Features.MinTheinKha
             _MinTheinKha = minTheinKha;
         }
 
+        #region Testing Code
+
+        //[HttpGet]
+        //public async Task<IActionResult> GetAllDataAsync()
+        //{
+        //    var data = await _MinTheinKha.GetAllData();
+        //    return Ok(data);
+        //}
+
+        #endregion
+
         [HttpGet]
-        public async Task<IActionResult> GetAllDataAsync()
+        public async Task<IActionResult> Questions()
         {
-            var data = await _MinTheinKha.GetAllData();
-            return Ok(data);
+            var model = await _MinTheinKha.GetAllData();
+            return Ok(model!.questions);
         }
+
+        [HttpGet("GetNumberList")]
+        public async Task<IActionResult> GetNumberList()
+        {
+            var model = await _MinTheinKha.GetAllData();
+            return Ok(model!.numberList);
+        }
+
+
+
     }
 }
