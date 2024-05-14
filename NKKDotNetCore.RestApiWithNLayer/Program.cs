@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen();
 
 #region Adding CustomSetting
 
-builder.Configuration.AddJsonFile("customsetting.json", true,true);
+builder.Configuration.AddJsonFile("customsetting.json", true, true);
 
 #endregion
 
