@@ -39,6 +39,13 @@ namespace NKKDotNetCore.RestApiWithNLayer.Features.MinTheinKha
             return Ok(model!.numberList);
         }
 
+        [HttpGet("{questionNo}/{no}")]
+        public async Task<IActionResult> GetNumberList(int questionNo, int no)
+        {
+            var model = await _MinTheinKha.GetAllData();
+            return Ok(model!.answers.FirstOrDefault(x => x.questionNo == questionNo && x.answerNo == no));
+        }
+
 
 
     }
