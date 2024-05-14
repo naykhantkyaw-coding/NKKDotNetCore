@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using NKKDotNetCore.RestApiWithNLayer.EFAppDbContextModels;
 using NKKDotNetCore.RestApiWithNLayer.Features.Blog;
+using NKKDotNetCore.RestApiWithNLayer.Features.DreamDic;
 using NKKDotNetCore.RestApiWithNLayer.Features.MinTheinKha;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,8 +34,11 @@ ServiceLifetime.Transient
 
 builder.Services.AddScoped<BL_Blog>();
 builder.Services.AddScoped<BL_MinTheinKha>();
+builder.Services.AddScoped<BL_DreamDic>();
+
 builder.Services.AddScoped<DA_Blog>();
 builder.Services.AddScoped<DA_MinTheinKha>();
+builder.Services.AddScoped<DA_DreamDic>();
 
 
 #endregion
