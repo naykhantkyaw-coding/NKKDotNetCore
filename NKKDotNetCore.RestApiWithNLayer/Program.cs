@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using NKKDotNetCore.RestApiWithNLayer.EFAppDbContextModels;
 using NKKDotNetCore.RestApiWithNLayer.Features.Blog;
+using NKKDotNetCore.RestApiWithNLayer.Features.MinTheinKha;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,7 +32,10 @@ ServiceLifetime.Transient
 #region Add DI
 
 builder.Services.AddScoped<BL_Blog>();
+builder.Services.AddScoped<BL_MinTheinKha>();
 builder.Services.AddScoped<DA_Blog>();
+builder.Services.AddScoped<DA_MinTheinKha>();
+
 
 #endregion
 
