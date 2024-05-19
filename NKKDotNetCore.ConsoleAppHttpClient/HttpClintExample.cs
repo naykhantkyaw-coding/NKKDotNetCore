@@ -29,8 +29,12 @@ namespace NKKDotNetCore.ConsoleAppHttpClient
             await CreateAsync("HttpClient", "AAHttp", "AAContaent");
             Console.WriteLine();
 
+            Console.WriteLine("PutUpdate");
+            await UpdateAsync(2, "HttpClient", "AAHttp", "AAContaent");
+            Console.WriteLine();
+
             Console.WriteLine("Delete");
-            await DeleteAsync(2);
+            await DeleteAsync(10);
         }
 
         private async Task ReadAsync()
@@ -66,6 +70,25 @@ namespace NKKDotNetCore.ConsoleAppHttpClient
             var jsonStr = JsonConvert.SerializeObject(model);
             HttpContent httpContent = new StringContent(jsonStr, Encoding.UTF8, Application.Json);
             var response = await _clinet.PostAsync(_endPoint, httpContent);
+            if (response.IsSuccessStatusCode)
+            {
+                string? message = await response.Content.ReadAsStringAsync();
+                string? messageStr = JsonConvert.DeserializeObject<string>(message);
+                Console.WriteLine(messageStr);
+            }
+        }
+
+        private async Task UpdateAsync(int id, string title, string author, string content)
+        {
+            BlogModel model = new BlogModel
+            {
+                BlogTitle = title,
+                BlogAuthor = author,
+                BlogContent = content
+            };
+            var jsonStr = JsonConvert.SerializeObject(model);
+            HttpContent httpContent = new StringContent(jsonStr, Encoding.UTF8, Application.Json);
+            var response = await _clinet.PutAsync($"{_endPoint}/{id}", httpContent);
             if (response.IsSuccessStatusCode)
             {
                 string? message = await response.Content.ReadAsStringAsync();
