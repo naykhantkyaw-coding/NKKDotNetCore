@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace NKKDotNetCore.ConsoleAppHttpClient
 {
@@ -19,8 +20,17 @@ namespace NKKDotNetCore.ConsoleAppHttpClient
         {
             await ReadAsync();
             Console.WriteLine();
+
             Console.WriteLine("GetBy ID");
             await GetByIdAsync(2);
+            Console.WriteLine();
+
+            Console.WriteLine("Create");
+            await CreateAsync("HttpClient", "AAHttp", "AAContaent");
+            Console.WriteLine();
+
+            Console.WriteLine("Delete");
+            await DeleteAsync(2);
         }
 
         private async Task ReadAsync()
@@ -42,6 +52,25 @@ namespace NKKDotNetCore.ConsoleAppHttpClient
                 var jsonStr = await response.Content.ReadAsStringAsync();
                 var item = JsonConvert.DeserializeObject<BlogModel>(jsonStr);
                 item.Dump();
+            }
+        }
+
+        private async Task CreateAsync(string title, string author, string content)
+        {
+            BlogModel model = new BlogModel
+            {
+                BlogTitle = title,
+                BlogAuthor = author,
+                BlogContent = content
+            };
+            var jsonStr = JsonConvert.SerializeObject(model);
+            HttpContent httpContent = new StringContent(jsonStr, Encoding.UTF8, Application.Json);
+            var response = await _clinet.PostAsync(_endPoint, httpContent);
+            if (response.IsSuccessStatusCode)
+            {
+                string? message = await response.Content.ReadAsStringAsync();
+                string? messageStr = JsonConvert.DeserializeObject<string>(message);
+                Console.WriteLine(messageStr);
             }
         }
 
