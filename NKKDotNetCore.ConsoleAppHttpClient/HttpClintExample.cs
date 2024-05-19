@@ -1,4 +1,5 @@
 ﻿using Dumpify;
+using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,9 @@ namespace NKKDotNetCore.ConsoleAppHttpClient
         public async Task RunAsync()
         {
             await ReadAsync();
+            Console.WriteLine();
+            Console.WriteLine("GetBy ID");
+            await GetByIdAsync(2);
         }
 
         private async Task ReadAsync()
@@ -27,6 +31,17 @@ namespace NKKDotNetCore.ConsoleAppHttpClient
                 string jsonStr = await response.Content.ReadAsStringAsync();
                 var lst = JsonConvert.DeserializeObject<List<BlogModel>>(jsonStr);
                 lst.Dump();
+            }
+        }
+
+        private async Task GetByIdAsync(int id)
+        {
+            var response = await _clinet.GetAsync($"{_endPoint}/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonStr = await response.Content.ReadAsStringAsync();
+                var item = JsonConvert.DeserializeObject<BlogModel>(jsonStr);
+                item.Dump();
             }
         }
     }
