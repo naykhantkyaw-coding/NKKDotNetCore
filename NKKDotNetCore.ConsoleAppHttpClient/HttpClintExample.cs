@@ -18,23 +18,27 @@ namespace NKKDotNetCore.ConsoleAppHttpClient
 
         public async Task RunAsync()
         {
-            await ReadAsync();
-            Console.WriteLine();
+            //await ReadAsync();
+            //Console.WriteLine();
 
-            Console.WriteLine("GetBy ID");
-            await GetByIdAsync(2);
-            Console.WriteLine();
+            //Console.WriteLine("GetBy ID");
+            //await GetByIdAsync(2);
+            //Console.WriteLine();
 
-            Console.WriteLine("Create");
-            await CreateAsync("HttpClient", "AAHttp", "AAContaent");
-            Console.WriteLine();
+            //Console.WriteLine("Create");
+            //await CreateAsync("HttpClient", "AAHttp", "AAContaent");
+            //Console.WriteLine();
 
-            Console.WriteLine("PutUpdate");
-            await UpdateAsync(2, "HttpClient", "AAHttp", "AAContaent");
-            Console.WriteLine();
+            //Console.WriteLine("PutUpdate");
+            //await UpdateAsync(2, "HttpClient", "AAHttp", "AAContaent");
+            //Console.WriteLine();
 
-            Console.WriteLine("Delete");
-            await DeleteAsync(10);
+            //Console.WriteLine("PutUpdate");
+            //await PatchUpdateAsync(2, "TTE");
+            //Console.WriteLine();
+
+            //Console.WriteLine("Delete");
+            //await DeleteAsync(10);
         }
 
         private async Task ReadAsync()
@@ -73,8 +77,7 @@ namespace NKKDotNetCore.ConsoleAppHttpClient
             if (response.IsSuccessStatusCode)
             {
                 string? message = await response.Content.ReadAsStringAsync();
-                string? messageStr = JsonConvert.DeserializeObject<string>(message);
-                Console.WriteLine(messageStr);
+                Console.WriteLine(message);
             }
         }
 
@@ -92,8 +95,32 @@ namespace NKKDotNetCore.ConsoleAppHttpClient
             if (response.IsSuccessStatusCode)
             {
                 string? message = await response.Content.ReadAsStringAsync();
-                string? messageStr = JsonConvert.DeserializeObject<string>(message);
-                Console.WriteLine(messageStr);
+                Console.WriteLine(message);
+            }
+        }
+
+        private async Task PatchUpdateAsync(int id, string title = null, string author = null, string content = null)
+        {
+            BlogModel model = new BlogModel();
+            if (!string.IsNullOrEmpty(title))
+            {
+                model.BlogTitle = title;
+            }
+            if (!string.IsNullOrEmpty(author))
+            {
+                model.BlogAuthor = author;
+            }
+            if (!string.IsNullOrEmpty(content))
+            {
+                model.BlogContent = content;
+            }
+            var jsonStr = JsonConvert.SerializeObject(model);
+            HttpContent httpContent = new StringContent(jsonStr, Encoding.UTF8, Application.Json);
+            var response = await _clinet.PatchAsync($"{_endPoint}/{id}", httpContent);
+            if (response.IsSuccessStatusCode)
+            {
+                string? message = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(message);
             }
         }
 
@@ -103,8 +130,7 @@ namespace NKKDotNetCore.ConsoleAppHttpClient
             if (response.IsSuccessStatusCode)
             {
                 string? message = await response.Content.ReadAsStringAsync();
-                string? messageStr = JsonConvert.DeserializeObject<string>(message);
-                Console.WriteLine(messageStr);
+                Console.WriteLine(message);
             }
         }
     }
