@@ -44,5 +44,16 @@ namespace NKKDotNetCore.ConsoleAppHttpClient
                 item.Dump();
             }
         }
+
+        private async Task DeleteAsync(int id)
+        {
+            var response = await _clinet.DeleteAsync($"{_endPoint}/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                string? message = await response.Content.ReadAsStringAsync();
+                string? messageStr = JsonConvert.DeserializeObject<string>(message);
+                Console.WriteLine(messageStr);
+            }
+        }
     }
 }
