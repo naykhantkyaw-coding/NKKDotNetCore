@@ -15,7 +15,11 @@ namespace NKKDotNetCore.ConsoleAppRestClient
         private readonly string _endPoint = "api/blog";
         public async Task Run()
         {
-
+            await ReadAsync();
+            // await CreateAsync("rest", "rest", "rest");
+            //await UpdateAsync(2, "restUp", "restUp", "restUp");
+            //await GetyByIdAsync(2);
+            //await DeleteAsync(2);
         }
 
         private async Task ReadAsync()
@@ -40,11 +44,31 @@ namespace NKKDotNetCore.ConsoleAppRestClient
                     //}
                     lst.Dump();
                 }
-
             }
         }
 
-        private async Task EditAsync(int id)
+        private async Task CreateAsync(string title, string author, string content)
+        {
+            BlogModel model = new BlogModel
+            {
+                BlogContent = content,
+                BlogAuthor = author,
+                BlogTitle = title,
+            };
+            RestRequest request = new RestRequest(_endPoint, Method.Post);
+            request.AddJsonBody(model);
+            var response = await _client.ExecuteAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                var message = response.Content;
+                if (message is not null)
+                {
+                    Console.WriteLine(message);
+                }
+            }
+        }
+
+        private async Task GetByIdAsync(int id)
         {
             RestRequest request = new RestRequest($"{_endPoint}/{id}", Method.Get);
             var response = await _client.ExecuteAsync(request);
@@ -54,13 +78,30 @@ namespace NKKDotNetCore.ConsoleAppRestClient
                 var model = JsonConvert.DeserializeObject<BlogModel>(jsonStr!);
                 if (model is not null)
                 {
-                    //Console.WriteLine(JsonConvert.SerializeObject(model));
-                    //Console.WriteLine($"Title => {model.BlogTitle}");
-                    //Console.WriteLine($"Author => {model.BlogAuthor}");
-                    //Console.WriteLine($"Content => {model.BlogContent}");
                     model.Dump();
                 }
 
+            }
+        }
+
+        private async Task UpdateAsync(int id, string title, string author, string content)
+        {
+            BlogModel model = new BlogModel
+            {
+                BlogContent = content,
+                BlogAuthor = author,
+                BlogTitle = title,
+            };
+            RestRequest request = new RestRequest($"{_endPoint}/{id}", Method.Put);
+            request.AddJsonBody(model);
+            var response = await _client.ExecuteAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                var message = response.Content;
+                if (message is not null)
+                {
+                    Console.WriteLine(message);
+                }
             }
         }
 

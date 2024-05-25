@@ -1,6 +1,5 @@
 ﻿using NKKDotNetCore.ConsoleAppHttpClient;
 
 HttpClintExample httpClintExample = new HttpClintExample();
-httpClintExample.RunAsync();
-
+await httpClintExample.RunAsync();
 Console.ReadKey();
