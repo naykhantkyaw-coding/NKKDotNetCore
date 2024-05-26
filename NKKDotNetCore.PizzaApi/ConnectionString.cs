@@ -7,10 +7,9 @@ internal static class ConnectionStrings
     public static SqlConnectionStringBuilder SqlConnectionStringBuilder = new SqlConnectionStringBuilder()
     {
         DataSource = ".",
-        InitialCatalog = "DotNetTrainingBatch4",
-        // InitialCatalog = "TestDb",
+        InitialCatalog = "DotNetCoreTrainingBatch4",
         UserID = "sa",
         Password = "sasa@123",
-        TrustServerCertificate = true
+        TrustServerCertificate = true,
     };
 }
