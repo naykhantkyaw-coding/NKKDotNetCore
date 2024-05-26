@@ -21,9 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NKKDotNetCore.ConsoleAppHtt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NKKDotNetCore.ConsoleAppRestClient", "NKKDotNetCore.ConsoleAppRestClient\NKKDotNetCore.ConsoleAppRestClient.csproj", "{A7631BAD-22A9-47C7-A79F-38C55799E706}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NKKDotNetCore.PizzaApi", "NKKDotNetCore.PizzaApi\NKKDotNetCore.PizzaApi.csproj", "{14F52B90-088D-4EA2-B1BE-F0EC5801B33C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NKKDotNetCore.PizzaApi", "NKKDotNetCore.PizzaApi\NKKDotNetCore.PizzaApi.csproj", "{14F52B90-088D-4EA2-B1BE-F0EC5801B33C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NKKDotNetCore.ConsoleAppRefitExample", "NKKDotNetCore.ConsoleAppRefitExample\NKKDotNetCore.ConsoleAppRefitExample.csproj", "{62514458-F051-4DE1-81F8-A96FB14A9023}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NKKDotNetCore.ConsoleAppRefitExample", "NKKDotNetCore.ConsoleAppRefitExample\NKKDotNetCore.ConsoleAppRefitExample.csproj", "{62514458-F051-4DE1-81F8-A96FB14A9023}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NKKDotNetCore.WinFormsApp", "NKKDotNetCore.WinFormsApp\NKKDotNetCore.WinFormsApp.csproj", "{47427308-A56C-4B1A-8FED-FC80A2BEB12A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{62514458-F051-4DE1-81F8-A96FB14A9023}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62514458-F051-4DE1-81F8-A96FB14A9023}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62514458-F051-4DE1-81F8-A96FB14A9023}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47427308-A56C-4B1A-8FED-FC80A2BEB12A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47427308-A56C-4B1A-8FED-FC80A2BEB12A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47427308-A56C-4B1A-8FED-FC80A2BEB12A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47427308-A56C-4B1A-8FED-FC80A2BEB12A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
