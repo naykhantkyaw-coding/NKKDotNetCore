@@ -16,5 +16,7 @@ namespace NKKDotNetCore.WinFormsApp.Queries
            (@BlogTitle
            ,@BlogAuthor
            ,@BlogContent)";
+
+        public static string BlogRead { get; } = "select * from BlogTable";
     }
 }

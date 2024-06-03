@@ -28,39 +28,41 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
+            dgvBlog = new DataGridView();
             colId = new DataGridViewTextBoxColumn();
             colTitle = new DataGridViewTextBoxColumn();
             colAuthor = new DataGridViewTextBoxColumn();
             colContent = new DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvBlog).BeginInit();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dgvBlog
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { colId, colTitle, colAuthor, colContent });
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(0, 0);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.RowTemplate.Height = 29;
-            dataGridView1.Size = new Size(800, 450);
-            dataGridView1.TabIndex = 0;
+            dgvBlog.AllowUserToAddRows = false;
+            dgvBlog.AllowUserToDeleteRows = false;
+            dgvBlog.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvBlog.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvBlog.Columns.AddRange(new DataGridViewColumn[] { colId, colTitle, colAuthor, colContent });
+            dgvBlog.Dock = DockStyle.Fill;
+            dgvBlog.Location = new Point(0, 0);
+            dgvBlog.Name = "dgvBlog";
+            dgvBlog.ReadOnly = true;
+            dgvBlog.RowHeadersWidth = 51;
+            dgvBlog.RowTemplate.Height = 29;
+            dgvBlog.Size = new Size(800, 450);
+            dgvBlog.TabIndex = 0;
             // 
             // colId
             // 
             colId.HeaderText = "ID";
             colId.MinimumWidth = 6;
             colId.Name = "colId";
+            colId.ReadOnly = true;
             colId.Visible = false;
             // 
             // colTitle
             // 
+            colTitle.DataPropertyName = "BlogTitle";
             colTitle.HeaderText = "Title";
             colTitle.MinimumWidth = 6;
             colTitle.Name = "colTitle";
@@ -68,6 +70,7 @@
             // 
             // colAuthor
             // 
+            colAuthor.DataPropertyName = "BlogAuthor";
             colAuthor.HeaderText = "Author";
             colAuthor.MinimumWidth = 6;
             colAuthor.Name = "colAuthor";
@@ -75,6 +78,7 @@
             // 
             // colContent
             // 
+            colContent.DataPropertyName = "BlogContent";
             colContent.HeaderText = "Content";
             colContent.MinimumWidth = 6;
             colContent.Name = "colContent";
@@ -85,16 +89,17 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvBlog);
             Name = "FrmBlogList";
             Text = "FrmBlogList";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            Load += FrmBlogList_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvBlog).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView dgvBlog;
         private DataGridViewTextBoxColumn colId;
         private DataGridViewTextBoxColumn colTitle;
         private DataGridViewTextBoxColumn colAuthor;
