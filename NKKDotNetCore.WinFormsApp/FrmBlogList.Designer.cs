@@ -30,6 +30,8 @@
         {
             dgvBlog = new DataGridView();
             colId = new DataGridViewTextBoxColumn();
+            colEdit = new DataGridViewButtonColumn();
+            colDelete = new DataGridViewButtonColumn();
             colTitle = new DataGridViewTextBoxColumn();
             colAuthor = new DataGridViewTextBoxColumn();
             colContent = new DataGridViewTextBoxColumn();
@@ -42,7 +44,7 @@
             dgvBlog.AllowUserToDeleteRows = false;
             dgvBlog.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvBlog.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvBlog.Columns.AddRange(new DataGridViewColumn[] { colId, colTitle, colAuthor, colContent });
+            dgvBlog.Columns.AddRange(new DataGridViewColumn[] { colId, colEdit, colDelete, colTitle, colAuthor, colContent });
             dgvBlog.Dock = DockStyle.Fill;
             dgvBlog.Location = new Point(0, 0);
             dgvBlog.Name = "dgvBlog";
@@ -59,6 +61,22 @@
             colId.Name = "colId";
             colId.ReadOnly = true;
             colId.Visible = false;
+            // 
+            // colEdit
+            // 
+            colEdit.HeaderText = "Edit";
+            colEdit.MinimumWidth = 6;
+            colEdit.Name = "colEdit";
+            colEdit.ReadOnly = true;
+            colEdit.Text = "Edit";
+            colEdit.ToolTipText = "Edit";
+            // 
+            // colDelete
+            // 
+            colDelete.HeaderText = "Delete";
+            colDelete.MinimumWidth = 6;
+            colDelete.Name = "colDelete";
+            colDelete.ReadOnly = true;
             // 
             // colTitle
             // 
@@ -101,6 +119,8 @@
 
         private DataGridView dgvBlog;
         private DataGridViewTextBoxColumn colId;
+        private DataGridViewButtonColumn colEdit;
+        private DataGridViewButtonColumn colDelete;
         private DataGridViewTextBoxColumn colTitle;
         private DataGridViewTextBoxColumn colAuthor;
         private DataGridViewTextBoxColumn colContent;
