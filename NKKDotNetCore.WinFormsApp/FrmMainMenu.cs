@@ -22,5 +22,11 @@ namespace NKKDotNetCore.WinFormsApp
             FrmBlog frmBlog = new FrmBlog();
             frmBlog.ShowDialog();
         }
+
+        private void blogListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmBlogList frmBlogList = new FrmBlogList();
+            frmBlogList.ShowDialog();
+        }
     }
 }

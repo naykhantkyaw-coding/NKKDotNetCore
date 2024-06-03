@@ -64,6 +64,7 @@
             blogListToolStripMenuItem.Name = "blogListToolStripMenuItem";
             blogListToolStripMenuItem.Size = new Size(224, 26);
             blogListToolStripMenuItem.Text = "Blog List";
+            blogListToolStripMenuItem.Click += blogListToolStripMenuItem_Click;
             // 
             // FrmMainMenu
             // 
