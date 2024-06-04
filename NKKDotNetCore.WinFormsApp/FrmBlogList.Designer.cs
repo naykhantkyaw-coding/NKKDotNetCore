@@ -53,9 +53,11 @@
             dgvBlog.RowTemplate.Height = 29;
             dgvBlog.Size = new Size(800, 450);
             dgvBlog.TabIndex = 0;
+            dgvBlog.CellClick += dgvBlog_CellClick;
             // 
             // colId
             // 
+            colId.DataPropertyName = "BlogId";
             colId.HeaderText = "ID";
             colId.MinimumWidth = 6;
             colId.Name = "colId";
@@ -69,7 +71,7 @@
             colEdit.Name = "colEdit";
             colEdit.ReadOnly = true;
             colEdit.Text = "Edit";
-            colEdit.ToolTipText = "Edit";
+            colEdit.UseColumnTextForButtonValue = true;
             // 
             // colDelete
             // 
@@ -77,6 +79,8 @@
             colDelete.MinimumWidth = 6;
             colDelete.Name = "colDelete";
             colDelete.ReadOnly = true;
+            colDelete.Text = "Delete";
+            colDelete.UseColumnTextForButtonValue = true;
             // 
             // colTitle
             // 

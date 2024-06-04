@@ -18,5 +18,8 @@ namespace NKKDotNetCore.WinFormsApp.Queries
            ,@BlogContent)";
 
         public static string BlogRead { get; } = "select * from BlogTable";
+
+        public static string BlogDelete { get; } = @"DELETE FROM [dbo].[BlogTable]
+                            WHERE BlogId = @BlogId";
     }
 }

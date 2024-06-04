@@ -25,8 +25,38 @@ namespace NKKDotNetCore.WinFormsApp
 
         private void FrmBlogList_Load(object sender, EventArgs e)
         {
+            LoadData();
+        }
+
+        private void LoadData()
+        {
             var lstBlog = _service.GetData<BlogModel>(BlogQueries.BlogRead);
             dgvBlog.DataSource = lstBlog;
+        }
+
+        private void dgvBlog_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int blogId = Convert.ToInt32(dgvBlog.Rows[e.RowIndex].Cells["colId"].Value);
+            if (e.ColumnIndex == (int)EnumFormControl.Edit)
+            {
+
+            }
+
+            if (e.ColumnIndex == (int)EnumFormControl.Delete)
+            {
+                var dialogResult = MessageBox.Show("Are you sure to delete?", "",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+                if (dialogResult == DialogResult.No) return;
+                DeleteBlog(blogId);
+            }
+        }
+        private void DeleteBlog(int id)
+        {
+            var result = _service.Execute(BlogQueries.BlogDelete, new { BlogId = id });
+            string message = result > 0 ? "Delete success" : "Delete fail";
+            MessageBox.Show(message);
+            LoadData();
         }
     }
 }
