@@ -21,6 +21,12 @@ namespace NKKDotNetCore.WinFormsApp.Queries
 
         public static string BlogEdit { get; } = "select * from BlogTable where BlogId=@BlogId";
 
+        public static string BlogUpdate { get; } = @"UPDATE [dbo].[BlogTable]
+            SET [BlogTitle] = @BlogTitle
+              ,[BlogAuthor] = @BlogAuthor
+              ,[BlogContent] = @BlogContent
+             WHERE BlogId = @BlogId";
+
         public static string BlogDelete { get; } = @"DELETE FROM [dbo].[BlogTable]
                             WHERE BlogId = @BlogId";
     }
