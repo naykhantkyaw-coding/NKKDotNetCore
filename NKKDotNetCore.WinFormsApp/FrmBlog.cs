@@ -7,10 +7,32 @@ namespace NKKDotNetCore.WinFormsApp
     public partial class FrmBlog : Form
     {
         private readonly DapperService _service;
+        private readonly int _blogId;
         public FrmBlog()
         {
             InitializeComponent();
             _service = new DapperService();
+
+            btnSave.Visible = true;
+            btnUpdate.Visible = false;
+        }
+
+        public FrmBlog(int blogId)
+        {
+            InitializeComponent();
+            _blogId = blogId;
+            _service = new DapperService();
+
+            var item = _service.GetDataFirstOrDefault<BlogModel>(BlogQueries.BlogEdit, new { BlogId = _blogId });
+            if (item is null) return;
+
+            txtTitle.Text = item.BlogTitle;
+            txtAuthor.Text = item.BlogAuthor;
+            txtContent.Text = item.BlogContent;
+
+            btnSave.Visible = false;
+            btnUpdate.Visible = true;
+
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

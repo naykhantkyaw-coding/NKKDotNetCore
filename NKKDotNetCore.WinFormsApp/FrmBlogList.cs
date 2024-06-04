@@ -36,10 +36,13 @@ namespace NKKDotNetCore.WinFormsApp
 
         private void dgvBlog_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.ColumnIndex == -1) return;
             int blogId = Convert.ToInt32(dgvBlog.Rows[e.RowIndex].Cells["colId"].Value);
+
             if (e.ColumnIndex == (int)EnumFormControl.Edit)
             {
-
+                FrmBlog blog = new FrmBlog(blogId);
+                blog.ShowDialog();
             }
 
             if (e.ColumnIndex == (int)EnumFormControl.Delete)
