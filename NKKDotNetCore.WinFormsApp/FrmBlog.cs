@@ -70,5 +70,16 @@ namespace NKKDotNetCore.WinFormsApp
             }
 
         }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            BlogModel blog = new BlogModel
+            {
+                BlogId = _blogId,
+                BlogTitle = txtTitle.Text.Trim(),
+                BlogAuthor = txtAuthor.Text.Trim(),
+                BlogContent = txtContent.Text.Trim(),
+            };
+        }
     }
 }
