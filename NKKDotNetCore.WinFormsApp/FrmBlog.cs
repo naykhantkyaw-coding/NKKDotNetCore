@@ -80,6 +80,11 @@ namespace NKKDotNetCore.WinFormsApp
                 BlogAuthor = txtAuthor.Text.Trim(),
                 BlogContent = txtContent.Text.Trim(),
             };
+
+            var result = _service.Execute(BlogQueries.BlogUpdate, blog);
+            string message = result > 0 ? "Update Success" : "Update Fail";
+            MessageBox.Show(message);
+            this.Close();
         }
     }
 }

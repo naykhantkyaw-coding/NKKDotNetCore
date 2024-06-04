@@ -43,6 +43,8 @@ namespace NKKDotNetCore.WinFormsApp
             {
                 FrmBlog blog = new FrmBlog(blogId);
                 blog.ShowDialog();
+
+                LoadData();
             }
 
             if (e.ColumnIndex == (int)EnumFormControl.Delete)
