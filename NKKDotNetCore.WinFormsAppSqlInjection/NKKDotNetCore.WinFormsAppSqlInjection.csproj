@@ -8,4 +8,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NKKDotNetCore.Shared\NKKDotNetCore.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
