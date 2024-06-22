@@ -14,8 +14,9 @@ namespace NKKDotNetCore.WinFormsAppSqlInjection
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            var query = $"select * from Tbl_User where Email = '{txtEmail.Text.Trim()}' and Password = '{txtPassword.Text.Trim()}'";
-            var model = _service.GetDataFirstOrDefault<UserModel>(query);
+            //var query = $"select * from Tbl_User where Email = '{txtEmail.Text.Trim()}' and Password = '{txtPassword.Text.Trim()}'";
+            var query = $"select * from Tbl_User where Email = @Email and Password = @Password";
+            var model = _service.GetDataFirstOrDefault<UserModel>(query, new { Email = txtEmail.Text.Trim(), Password = txtPassword.Text.Trim() });
             if (model is null)
             {
                 MessageBox.Show("User does not exist!");
